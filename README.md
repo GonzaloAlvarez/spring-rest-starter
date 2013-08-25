@@ -61,3 +61,6 @@ Author
 -------------------------------------------
 
 [Gonzalo Alvarez](http://www.gonzaloalvarez.es) 
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/GonzaloAlvarez/spring-rest-starter/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
