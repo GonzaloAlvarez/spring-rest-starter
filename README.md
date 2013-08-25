@@ -1,4 +1,4 @@
-Spring 3.2 REST Web Application Starter
+Spring 3.2 REST Application Starter
 ==========================================
 
 Spring REST Starter is an skeleton to create new Rest Server Applications 
