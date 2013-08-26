@@ -54,7 +54,8 @@ Database
 For this Starter, the HSQLDB database has been selected, but it would be very easy to change the
 datasource.properties file in order to have a different database.
 
-We encourage to use the Profile concept to have different databases.
+We encourage to use the [Profile](http://blog.springsource.org/2011/02/14/spring-3-1-m1-introducing-profile/)
+concept to have different databases.
 
 Tests
 -------------------------------------------
