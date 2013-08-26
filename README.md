@@ -15,12 +15,16 @@ to the client.
 
 The following aspects can be highlighted:
 
-REST with HATEOAS
+REST, HATEOAS and CORS
 -------------------------------------------
 
 Spring REST Starter uses the [Spring Data REST](http://www.springsource.org/spring-data/rest)
 library that provides a very simple way to generate Rest interfaces that follow 
 the [HATEOAS](http://en.wikipedia.org/wiki/HATEOAS) principle.
+
+A CORS Filter has been used to provide the appropriate HTTP headers for Ajax Clients, specially AngularJS.
+The source of the filter is 
+an [answer](http://stackoverflow.com/questions/16190699/automatically-add-header-to-every-response) on StackOverflow.
 
 Security and Authentication
 -------------------------------------------
