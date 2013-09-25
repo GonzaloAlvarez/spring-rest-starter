@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>es.galvarez.rest</groupId>
-	<artifactId>spring-rest-starter</artifactId>
+	<artifactId>spring-rest-bootstrap</artifactId>
 	<version>0.0.1</version>
 	<packaging>war</packaging>
 	<name>Spring Rest Web Application Starter</name>
@@ -27,9 +27,9 @@
 		<slf4j.version>1.7.5</slf4j.version>
 		<jackson.version>2.2.2</jackson.version>
 		<jaxb-api.version>2.2.9</jaxb-api.version>
-		<spring-security.version>3.2.0.M2</spring-security.version>
-		<spring-data-rest.version>1.0.0.RELEASE</spring-data-rest.version>
-		<spring-data-jpa.version>1.2.0.RELEASE</spring-data-jpa.version>
+		<spring-security.version>3.2.0.RC1</spring-security.version>
+		<spring-data-rest.version>2.0.0.BUILD-SNAPSHOT</spring-data-rest.version>
+		<spring-data-jpa.version>1.4.0.BUILD-SNAPSHOT</spring-data-jpa.version>
 		<lombok.version>0.12.0</lombok.version>
 		<javax-servlet.version>2.5</javax-servlet.version>
 		<javax-inject.version>1</javax-inject.version>
@@ -161,6 +161,11 @@
 			<id>repository.springsource.milestone</id>
 			<name>SpringSource Milestone Repository</name>
 			<url>http://repo.springsource.org/milestone</url>
+		</repository>
+		<repository>
+			<id>spring-milestone</id>
+			<name>Spring Maven MILESTONE Repository</name>
+			<url>http://repo.springsource.org/libs-snapshot</url>
 		</repository>
 	</repositories>
 </project>

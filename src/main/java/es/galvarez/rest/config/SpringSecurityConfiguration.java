@@ -39,9 +39,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configurers.SessionCreationPolicy;
-import org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint;
-import org.springframework.security.web.authentication.www.DigestAuthenticationFilter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 
 import es.galvarez.rest.repositories.UserRepository;
 
@@ -53,25 +52,18 @@ import es.galvarez.rest.repositories.UserRepository;
 @EnableWebSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
+	private static final String REALM = "Secured Environment";
+	
 	@Resource
 	private UserRepository userRepository;
 
 	@Bean
-	public DigestAuthenticationEntryPoint digestEntryPoint() {
-		DigestAuthenticationEntryPoint digestAuthenticationEntryPoint = new DigestAuthenticationEntryPoint();
-		digestAuthenticationEntryPoint.setKey("48c23fa223f32e23b45b6a2344");
-		digestAuthenticationEntryPoint.setRealmName("Rest Realm Authentication");
-		return digestAuthenticationEntryPoint;
+	public BasicAuthenticationEntryPoint basicAuthenticationEntryPoint() {
+		RestAuthenticationEntryPoint restAuthenticationEntryPoint = new RestAuthenticationEntryPoint();
+		restAuthenticationEntryPoint.setRealmName(SpringSecurityConfiguration.REALM);
+		return restAuthenticationEntryPoint;
 	}
 
-	@Bean
-	public DigestAuthenticationFilter digestAuthenticationFilter(DigestAuthenticationEntryPoint entryPoint) {
-		DigestAuthenticationFilter filter = new DigestAuthenticationFilter();
-		filter.setAuthenticationEntryPoint(entryPoint);
-		filter.setUserDetailsService(userRepository);
-		return filter;
-	}
-	
 	@Bean
 	public DaoAuthenticationProvider daoAuthenticationProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -88,13 +80,13 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 // @formatter:off
 		http
-			.exceptionHandling().authenticationEntryPoint(digestEntryPoint())
+			.exceptionHandling().authenticationEntryPoint(basicAuthenticationEntryPoint())
 		.and()
-			.sessionManagement().enableSessionUrlRewriting(false).sessionCreationPolicy(SessionCreationPolicy.stateless)
+			.sessionManagement().enableSessionUrlRewriting(false).sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and()
-			.authorizeUrls().antMatchers("/users/**").authenticated()
+			.authorizeRequests().antMatchers("/users/**").authenticated()
 		.and()
-			.addFilter(digestAuthenticationFilter(digestEntryPoint()));
+			.httpBasic();
 // @formatter:on
 	}
 

@@ -35,6 +35,7 @@ import java.util.Arrays;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 
 import es.galvarez.rest.model.Role;
 import es.galvarez.rest.model.User;
@@ -52,6 +53,8 @@ public class DBInitializerApplicationStartupListener implements ApplicationListe
 		Role userRole = null;
 
 		ApplicationContext applicationContext = event.getApplicationContext();
+		ShaPasswordEncoder passwordEncoder = new ShaPasswordEncoder(256);
+		passwordEncoder.setEncodeHashAsBase64(true);
 		
 		if(applicationContext != null) {
 			RoleRepository roleRepository = applicationContext.getBean(RoleRepository.class);
@@ -72,7 +75,7 @@ public class DBInitializerApplicationStartupListener implements ApplicationListe
 				if(userRepository.loadUserByUsername("admin") == null) {
 					User adminUser = new User();
 					adminUser.setUsername("admin");
-					adminUser.setPassword("admin123");
+					adminUser.setPassword(passwordEncoder.encodePassword("admin123", ""));
 					adminUser.setAuthorities(
 									Arrays.asList(new Role[]{
 											roleRepository.findOne("ADMIN")

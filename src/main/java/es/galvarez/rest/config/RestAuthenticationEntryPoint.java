@@ -20,24 +20,36 @@
 //
 // --------------------------------------------------------------------------------
 //
-// System : spring-rest-starter
+// System : spring-rest-bootstrap
 // Sub-System : es.galvarez.rest.config
-// File Name : WebSpringRestInitializer.java
+// File Name : RestAuthenticationEntryPoint.java
 //
 // Author : Gonzalo Alvarez
-// Creation Date : 25/08/2013
+// Creation Date : 25/09/2013
 //
 // -----------------------------------------------------------------------------
 package es.galvarez.rest.config;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.rest.webmvc.RepositoryRestMvcConfiguration;
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 
 /**
  * @author Gonzalo Alvarez
  *
  */
-@Configuration
-public class WebSpringRestInitializer extends RepositoryRestMvcConfiguration {
-
+public class RestAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
+	
+	 @Override
+     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+         response.addHeader("Access-Control-Allow-Origin", "null");
+         response.addHeader("WWW-Authenticate", "RestBasic realm=\"" + getRealmName() + "\"");
+         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+         response.setContentLength(0);     
+	 }
 }

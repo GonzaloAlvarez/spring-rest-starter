@@ -31,7 +31,7 @@
 package es.galvarez.rest.repositories;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.rest.repository.annotation.RestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import es.galvarez.rest.model.Role;
 

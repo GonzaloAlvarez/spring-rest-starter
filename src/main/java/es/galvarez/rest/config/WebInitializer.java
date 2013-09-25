@@ -32,6 +32,7 @@ package es.galvarez.rest.config;
 
 import javax.servlet.Filter;
 
+import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
@@ -53,7 +54,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	 */
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{WebSpringRestInitializer.class};
+        return new Class[]{RepositoryRestMvcConfiguration.class};
 	}
 
 	/* (non-Javadoc)
