@@ -6,7 +6,7 @@
 	<version>0.0.1</version>
 	<packaging>war</packaging>
 	<name>Spring Rest Web Application Starter</name>
-	
+
 	<developers>
 		<developer>
 			<id>galvarez</id>
@@ -18,20 +18,24 @@
 			</roles>
 		</developer>
 	</developers>
-	
+
 	<properties>
 		<java-version>1.6</java-version>
 		<spring.version>3.2.4.RELEASE</spring.version>
 		<hibernate.version>4.2.0.Final</hibernate.version>
 		<hsqldb.version>2.2.9</hsqldb.version>
 		<slf4j.version>1.7.5</slf4j.version>
+		<log4j-over-slf4j-version>1.7.2</log4j-over-slf4j-version>
+		<jcl-over-slf4j-version>1.7.2</jcl-over-slf4j-version> <!-- no problem to have yet another slf4j bridge -->
+		<logback-core-version>1.0.7</logback-core-version>
+		<logback-classic-version>1.0.7</logback-classic-version>
 		<jackson.version>2.2.2</jackson.version>
 		<jaxb-api.version>2.2.9</jaxb-api.version>
 		<spring-security.version>3.2.0.RC1</spring-security.version>
 		<spring-data-rest.version>2.0.0.BUILD-SNAPSHOT</spring-data-rest.version>
-		<spring-data-jpa.version>1.4.0.BUILD-SNAPSHOT</spring-data-jpa.version>
+		<spring-data-jpa.version>1.5.0.BUILD-SNAPSHOT</spring-data-jpa.version>
 		<lombok.version>0.12.0</lombok.version>
-		<javax-servlet.version>2.5</javax-servlet.version>
+		<javax-servlet.version>3.0.1</javax-servlet.version>
 		<javax-inject.version>1</javax-inject.version>
 		<javax-annotation.version>1.0</javax-annotation.version>
 		<javax-validation.version>1.0.0.GA</javax-validation.version>
@@ -79,7 +83,7 @@
 		<!-- J2EE Dependencies -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
+			<artifactId>javax.servlet-api</artifactId>
 			<version>${javax-servlet.version}</version>
 			<scope>provided</scope>
 		</dependency>
@@ -135,6 +139,27 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${jcl-over-slf4j-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>log4j-over-slf4j</artifactId>
+			<version>${log4j-over-slf4j-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>${logback-core-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback-classic-version}</version>
+		</dependency>
+
 		<!-- Lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -166,6 +191,11 @@
 			<id>spring-milestone</id>
 			<name>Spring Maven MILESTONE Repository</name>
 			<url>http://repo.springsource.org/libs-snapshot</url>
+		</repository>
+		<repository>
+			<id>repository.jboss.org</id>
+			<name>Repository hosting the jboss artifacts</name>
+			<url>http://repository.jboss.org/maven2</url>
 		</repository>
 	</repositories>
 </project>

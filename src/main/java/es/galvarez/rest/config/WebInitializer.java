@@ -62,14 +62,14 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	 */
 	@Override
 	protected String[] getServletMappings() {
-        return new String[]{"/"};
+        return new String[]{"/api/*"};
 	}
 
 	/* (non-Javadoc)
 	 * @see org.springframework.web.servlet.support.AbstractDispatcherServletInitializer#getServletFilters()
 	 */
-   @Override
-    protected Filter[] getServletFilters() {
-    	return new Filter[]{new CORSFilter()};
-    }
+	@Override
+	protected Filter[] getServletFilters() {
+		return new Filter[] { new CORSFilter() };
+	}
 }

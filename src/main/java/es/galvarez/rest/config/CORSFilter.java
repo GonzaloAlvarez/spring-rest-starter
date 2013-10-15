@@ -52,11 +52,12 @@ public class CORSFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
 			FilterChain filterChain) throws ServletException, IOException {
 		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.addHeader("Access-Control-Allow-Credentials", "true");
 		if (request.getHeader("Access-Control-Request-Method") != null
 				&& "OPTIONS".equals(request.getMethod())) {
 			// CORS "pre-flight" request
 			response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-			response.addHeader("Access-Control-Allow-Headers", "X-Requested-With,Origin,Content-Type, Accept");
+			response.addHeader("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, X-Requested-With, Content-Type, Accept");
 		}
 		filterChain.doFilter(request, response);
 	}

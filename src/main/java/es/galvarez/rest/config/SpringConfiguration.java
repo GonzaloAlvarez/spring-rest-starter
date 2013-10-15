@@ -37,16 +37,21 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration;
 
 /**
  * @author Gonzalo Alvarez
@@ -55,7 +60,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableJpaRepositories(basePackages = SpringConfiguration.BASE_PACKAGES)
 @EnableTransactionManagement
-public class SpringConfiguration {
+@EnableHypermediaSupport
+@ComponentScan(basePackages = SpringConfiguration.BASE_PACKAGES, excludeFilters = @Filter({ Service.class, Configuration.class }))
+public class SpringConfiguration  extends DelegatingWebMvcConfiguration {
 
 	public static final String BASE_PACKAGES = "es.galvarez.rest";
 	public static final String DATASOURCE_FILE = "/datasource.properties";

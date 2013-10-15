@@ -34,6 +34,7 @@ import javax.annotation.Resource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -84,9 +85,12 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.and()
 			.sessionManagement().enableSessionUrlRewriting(false).sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and()
-			.authorizeRequests().antMatchers("/users/**").authenticated()
+			.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
 		.and()
-			.httpBasic();
+			.authorizeRequests().antMatchers("/api/**").authenticated()
+		.and()
+			.httpBasic().authenticationEntryPoint(basicAuthenticationEntryPoint())
+		.and().csrf().disable();
 // @formatter:on
 	}
 

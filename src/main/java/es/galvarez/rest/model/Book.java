@@ -20,34 +20,20 @@
 //
 // --------------------------------------------------------------------------------
 //
-// System : spring-rest-starter
+// System : spring-rest-bootstrap
 // Sub-System : es.galvarez.rest.model
-// File Name : User.java
+// File Name : Book.java
 //
 // Author : Gonzalo Alvarez
-// Creation Date : 25/08/2013
+// Creation Date : 25/09/2013
 //
 // -----------------------------------------------------------------------------
 package es.galvarez.rest.model;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -57,34 +43,12 @@ import lombok.Setter;
  *
  */
 @Entity
-@Table(uniqueConstraints=@UniqueConstraint(name="USERNAME_U", columnNames="USERNAME"))
-@NamedQuery(name="User.loadUserByUsername", query="SELECT u FROM User u WHERE u.username = ?1")
 @Getter @Setter
-public class User implements Serializable, UserDetails {
-
-	private static final long serialVersionUID = -9005943024026207527L;
-	public static final String ROLE_USER_JOIN = "USER_ROLES";
+public class Book {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	
-	@NotNull
-	@Size(min=4, max=56)
-	private String username;
-	
-	@NotNull
-	private String password;
-	
-	private boolean accountNonExpired = true;
-	
-	private boolean accountNonLocked = true;
-	
-	private boolean credentialsNonExpired = true;
-	
-	private boolean enabled = true;
-	
-	@ManyToMany(cascade=CascadeType.REFRESH, fetch=FetchType.EAGER)
-	@JoinTable(name=User.ROLE_USER_JOIN)
-	private List<Role> authorities;
+
+	private String name;
 }

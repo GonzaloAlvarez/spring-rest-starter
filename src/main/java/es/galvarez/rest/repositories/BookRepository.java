@@ -21,35 +21,25 @@
 // --------------------------------------------------------------------------------
 //
 // System : spring-rest-bootstrap
-// Sub-System : es.galvarez.rest.config
-// File Name : RestAuthenticationEntryPoint.java
+// Sub-System : es.galvarez.rest.repositories
+// File Name : BookRepository.java
 //
 // Author : Gonzalo Alvarez
 // Creation Date : 25/09/2013
 //
 // -----------------------------------------------------------------------------
-package es.galvarez.rest.config;
+package es.galvarez.rest.repositories;
 
-import java.io.IOException;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.rest.core.annotation.RestResource;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
+import es.galvarez.rest.model.Book;
 
 /**
  * @author Gonzalo Alvarez
  *
  */
-public class RestAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
+@RestResource(path="books", rel="books")
+public interface BookRepository extends PagingAndSortingRepository<Book, Long> {
 	
-	 @Override
-     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-		response.addHeader("Access-Control-Allow-Origin", "null");
-		response.addHeader("WWW-Authenticate", "RestBasic realm=\"" + getRealmName() + "\"");
-		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-		response.setContentLength(0);
-	 }
 }

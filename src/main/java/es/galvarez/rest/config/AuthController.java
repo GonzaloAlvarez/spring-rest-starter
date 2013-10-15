@@ -22,34 +22,40 @@
 //
 // System : spring-rest-bootstrap
 // Sub-System : es.galvarez.rest.config
-// File Name : RestAuthenticationEntryPoint.java
+// File Name : PingController.java
 //
 // Author : Gonzalo Alvarez
-// Creation Date : 25/09/2013
+// Creation Date : 08/10/2013
 //
 // -----------------------------------------------------------------------------
 package es.galvarez.rest.config;
 
-import java.io.IOException;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
+import org.springframework.data.rest.webmvc.RepositoryLinksResource;
+import org.springframework.hateoas.ResourceProcessor;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author Gonzalo Alvarez
  *
  */
-public class RestAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
+@Controller
+public class AuthController implements ResourceProcessor<RepositoryLinksResource> {
+
+	@RequestMapping("/auth")
+	public HttpEntity<String> auth() {
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
 	
-	 @Override
-     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-		response.addHeader("Access-Control-Allow-Origin", "null");
-		response.addHeader("WWW-Authenticate", "RestBasic realm=\"" + getRealmName() + "\"");
-		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-		response.setContentLength(0);
-	 }
+	public RepositoryLinksResource process(RepositoryLinksResource resource) {
+		resource.add(linkTo(methodOn(AuthController.class).auth()).withRel("auth"));
+		return resource;
+	}
+
 }
