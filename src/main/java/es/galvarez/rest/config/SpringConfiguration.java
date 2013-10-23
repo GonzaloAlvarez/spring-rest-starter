@@ -42,7 +42,6 @@ import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -60,7 +59,6 @@ import org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfigu
 @Configuration
 @EnableJpaRepositories(basePackages = SpringConfiguration.BASE_PACKAGES)
 @EnableTransactionManagement
-@EnableHypermediaSupport
 @ComponentScan(basePackages = SpringConfiguration.BASE_PACKAGES, excludeFilters = @Filter({ Service.class, Configuration.class }))
 public class SpringConfiguration  extends DelegatingWebMvcConfiguration {
 

@@ -30,11 +30,9 @@
 // -----------------------------------------------------------------------------
 package es.galvarez.rest.config;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
 import org.springframework.data.rest.webmvc.RepositoryLinksResource;
 import org.springframework.hateoas.ResourceProcessor;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,7 +52,7 @@ public class AuthController implements ResourceProcessor<RepositoryLinksResource
 	}
 	
 	public RepositoryLinksResource process(RepositoryLinksResource resource) {
-		resource.add(linkTo(methodOn(AuthController.class).auth()).withRel("auth"));
+		resource.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(AuthController.class).auth()).withRel("auth"));
 		return resource;
 	}
 
