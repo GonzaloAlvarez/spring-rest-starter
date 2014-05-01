@@ -47,10 +47,12 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.security.core.userdetails.UserDetails;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author Gonzalo Alvarez
@@ -67,6 +69,7 @@ public class User implements Serializable, UserDetails {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@JsonIgnore
 	private Long id;
 	
 	@NotNull
@@ -74,17 +77,23 @@ public class User implements Serializable, UserDetails {
 	private String username;
 	
 	@NotNull
+	@JsonIgnore
 	private String password;
 	
+	@JsonIgnore
 	private boolean accountNonExpired = true;
 	
+	@JsonIgnore
 	private boolean accountNonLocked = true;
 	
+	@JsonIgnore
 	private boolean credentialsNonExpired = true;
 	
+	@JsonIgnore
 	private boolean enabled = true;
 	
 	@ManyToMany(cascade=CascadeType.REFRESH, fetch=FetchType.EAGER)
 	@JoinTable(name=User.ROLE_USER_JOIN)
+	@JsonIgnore
 	private List<Role> authorities;
 }
